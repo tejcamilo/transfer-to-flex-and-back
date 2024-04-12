@@ -1,9 +1,3 @@
-// Get the SID of your Studio Flow on this link, it starts with "FW": https://console.twilio.com/us1/develop/studio/flows?frameUrl=/console/studio/flows
-const studioFlowSid = 'FW298402fa1f6d0d075ac8e3f149cc4185';
-
-// Get your taskRouterWorkflow SID on this link, it starts with "WW": https://console.twilio.com/us1/develop/taskrouter/workspaces?frameUrl=/console/taskrouter/workspaces
-const taskRouterWorkflow = 'WW399789c22a2d9cf1f308d3295c75c643';
-
 const Response = (callback, xml) => {
     const response = new Twilio.Response();
     response.appendHeader('Content-Type', 'application/xml');
@@ -19,10 +13,12 @@ exports.handler = async (context, event, callback) => {
 
     console.log('event', event);
 
-    const { ACCOUNT_SID, PATH, DOMAIN_NAME } = context;
+    const { ACCOUNT_SID, PATH, DOMAIN_NAME, STUDIO_FLOW_SID, WORKFLOW_SID } = context;
     const { CallSid, transferToIVRMenu } = event;
 
-    transferToIVRMenu = true;
+    const studioFlowSid = STUDIO_FLOW_SID;
+    const taskRouterWorkflow = WORKFLOW_SID;
+
     //
     // Request came from Studio Flow to forward the call to Flex
     //
